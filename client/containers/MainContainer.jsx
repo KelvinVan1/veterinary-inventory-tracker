@@ -42,9 +42,16 @@ class MainContainer extends Component {
 
     return (
       <div>
-        <div className='item-list'>
+        <table className='item-list'>
+          <tr>
+            <th>Name</th>
+            <th>Current Stock</th>
+            <th>Ideal Stock</th>
+            <th>Availability </th>
+            <th>Edit</th>
+          </tr>
           {this.state.itemList}
-        </div>
+        </table>
 
         <Link to='/add'>
           <button>Add Item!</button>
