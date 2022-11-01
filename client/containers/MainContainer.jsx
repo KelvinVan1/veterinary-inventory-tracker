@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Item from '../components/Item.jsx';
 
 class MainContainer extends Component {
   constructor(props){
@@ -18,9 +19,7 @@ class MainContainer extends Component {
         const newitemList = [];
         data.forEach(({itemName, currentStock, idealStock}) => {
           newitemList.push(
-            <div className='item'>
-              <h4>Name: {itemName} Current Stock: {currentStock} Ideal Stock: {idealStock}</h4>
-            </div>
+            <Item itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock}/>
           );
         });
         this.setState({itemList: newitemList});
@@ -34,12 +33,12 @@ class MainContainer extends Component {
 
   render() {
     console.log('IN RENDER', this.state);
-    // if (this.state.itemList.length === 0) 
-    //   return(
-    //     <div>
-    //       <h1>Loading data, please wait...</h1>
-    //     </div>
-    //   );
+    if (this.state.itemList.length === 0) 
+      return(
+        <div>
+          <h1>Loading data, please wait...</h1>
+        </div>
+      );
 
     return (
       <div>
