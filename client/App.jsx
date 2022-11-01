@@ -1,41 +1,22 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import MainContainer from './containers/MainContainer.jsx';
+import AddItem from './containers/AddItemContainer.jsx';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      name: 'DEFAULT'
-    };
-  }
-
-  componentDidMount(){
-    console.log('App Component Mounted');
-    
-    fetch('/api/inventory', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({name: data.name});
-      });
-    console.log(this.state);
-  }
-
   render() {
-    console.log('IN RENDER', this.state);
-    if (this.state.name === 'DEFAULT') 
-      return(
-        <div>
-          <h1>Loading data, please wait...</h1>
-        </div>
-      );
-
     return (
-      <div>
-        <h2>{this.state.name}</h2>
-      </div>
+      <Router>
+        <div className= 'app'>
+          <h1 className='title'>Veterinary Inventory System</h1>
+
+          <Routes>
+            <Route exact path='/' element={<MainContainer/>}/>
+            <Route path='/add' element={<AddItem/>}/>
+          </Routes>
+
+        </div>
+      </Router>
     );
   }
 }
