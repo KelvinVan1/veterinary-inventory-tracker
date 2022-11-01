@@ -3,11 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
 
-const Item = require('./models/itemModel');
-
 const app = express();
 
-//const apiRouter = require('./routes/api');
+const inventoryRouter = require('./routes/inventoryRoute.js');
 
 const PORT = 3000;
 
@@ -34,22 +32,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Route Handlers
-//app.use('/api', apiRouter);
+app.use('/api/inventory', inventoryRouter);
 
 //Base App handler
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
-});
-
-app.get('/api', (req, res) => {
-  console.log('API');
-  Item.create({itemName: 'Doxycycline', currentStock: 2, idealStock: 1})
-    .then(data => {
-      return res.status(200).send({name: 'Kelvin'});
-    })
-    .catch(err => {
-      return res.status(404).send(err);
-    });
 });
 
 //Catch-all route handler

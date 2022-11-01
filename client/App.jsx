@@ -12,7 +12,7 @@ class App extends Component {
   componentDidMount(){
     console.log('App Component Mounted');
     
-    fetch('/api', {
+    fetch('/api/inventory', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -34,7 +34,6 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Hello World</h1>
         <h2>{this.state.name}</h2>
       </div>
     );
