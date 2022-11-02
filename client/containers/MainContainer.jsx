@@ -17,9 +17,9 @@ class MainContainer extends Component {
       .then(res => res.json())
       .then(data => {
         const newitemList = [];
-        data.forEach(({itemName, currentStock, idealStock}) => {
+        data.forEach(({_id, itemName, currentStock, idealStock}) => {
           newitemList.push(
-            <Item itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock}/>
+            <Item id = {_id} itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock}/>
           );
         });
         this.setState({itemList: newitemList});

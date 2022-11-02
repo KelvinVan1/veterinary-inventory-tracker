@@ -27,4 +27,17 @@ itemController.createItem = (req, res, next) => {
     });
 };
 
+itemController.updateItem = (req, res, next) => {
+  const {id, itemName, currentStock, idealStock} = req.body;
+
+  Items.findByIdAndUpdate(id, {itemName, currentStock, idealStock})
+    .then(data => {
+      res.locals.item = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
 module.exports = itemController;

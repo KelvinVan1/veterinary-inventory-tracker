@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 class Item extends Component {
   constructor(props){
@@ -27,7 +28,9 @@ class Item extends Component {
           {this.calculatePrecentage().toFixed(2)}%
         </td>
         <td className='edit-button'>
-          <button>Edit</button>
+          <Link to={`/edit/${this.props.id}`} state={{ itemName: this.props.itemName, currentStock: this.props.currentStock, idealStock: this.props.idealStock}}>
+            <button>Edit</button>
+          </Link>
         </td>
       </tr>
     );

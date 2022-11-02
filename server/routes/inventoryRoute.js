@@ -14,4 +14,9 @@ router.post('/', itemController.createItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
+//Patch Request to update an existing item in inventory
+router.patch('/', itemController.updateItem,  (req, res) => {
+  return res.status(200).send(res.locals.item);
+});
+
 module.exports = router;
