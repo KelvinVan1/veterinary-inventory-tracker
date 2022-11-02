@@ -19,7 +19,7 @@ class MainContainer extends Component {
         const newitemList = [];
         data.forEach(({_id, itemName, currentStock, idealStock}) => {
           newitemList.push(
-            <Item id = {_id} itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock}/>
+            <Item id = {_id} itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock} key={Math.floor(Math.random() * 300)}/>
           );
         });
         this.setState({itemList: newitemList});
@@ -43,14 +43,22 @@ class MainContainer extends Component {
     return (
       <div>
         <table className='item-list'>
-          <tr>
-            <th>Name</th>
-            <th>Current Stock</th>
-            <th>Ideal Stock</th>
-            <th>Availability </th>
-            <th>Edit</th>
-          </tr>
-          {this.state.itemList}
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Current Stock</th>  
+              <th>Ideal Stock</th>
+              <th>Availability </th>
+              <th>Manage Item</th>
+              <th>Edit Details</th>
+              <th>Delete Item</th> 
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.state.itemList}
+          </tbody>
+
         </table>
 
         <Link to='/add'>

@@ -40,4 +40,18 @@ itemController.updateItem = (req, res, next) => {
     });
 };
 
+itemController.deleteItem = (req, res, next) => {
+  const {id} = req.body;
+
+  Items.findByIdAndDelete(id)
+    .then(data => {
+      console.log('DELETED');
+      res.locals.item = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
 module.exports = itemController;

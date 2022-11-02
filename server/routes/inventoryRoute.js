@@ -19,4 +19,9 @@ router.patch('/', itemController.updateItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
+//Delete Request to delete an existing item in inventory
+router.delete('/', itemController.deleteItem,  (req, res) => {
+  return res.status(200).send(res.locals.item);
+});
+
 module.exports = router;
