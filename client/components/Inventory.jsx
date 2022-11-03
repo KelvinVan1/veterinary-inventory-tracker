@@ -14,6 +14,7 @@ class Inventory extends Component {
     return (this.props.currentStock / this.props.idealStock) * 100;
   }
 
+
   deleteItem() {
     fetch('/api/inventory', {
       method: 'DELETE',

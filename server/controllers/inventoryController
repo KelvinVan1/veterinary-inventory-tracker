@@ -5,6 +5,9 @@ const inventoryController = {};
 inventoryController.getInventory = (req, res, next) => {
   Inventory.find({}).exec()
     .then(data => {
+      for(let i = 0; i < data.length; i++) {
+        data[i].currentStock = data[i].inventoryItems.length;
+      }
       res.locals.itemList = data;
       return next();
     })
