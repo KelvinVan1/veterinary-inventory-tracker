@@ -7,6 +7,7 @@ import AddItem from './containers/AddItemContainer.jsx';
 import EditItem from './containers/EditItemContainer.jsx';
 import EditInventory from './containers/EditInventoryContainer.jsx';
 import DeleteItem from './containers/deleteContainer.jsx';
+import CalculateUsage from './containers/UsageContainer.jsx';
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path='/edit/item/:id' element={<EditItem/>}/>
             <Route path='/edit/inventory/:id' element={<EditInventory/>}/>
             <Route path='/delete/:id' element={<DeleteItem/>}/>
+            <Route path='/calculate/:id' element={<CalculateUsage/>}/>
           </Routes>
 
         </div>

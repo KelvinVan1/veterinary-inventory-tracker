@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState} from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Item from '../components/Item.jsx';
 
@@ -43,6 +43,7 @@ function InventoryItemsContainer () {
             <th>Type</th>
             <th>Remaining</th>  
             <th>Expiration</th>
+            <th>Calculate Usage</th>
             <th>Manage Item</th>
             <th>Delete Item</th> 
           </tr>

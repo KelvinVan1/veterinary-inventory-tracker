@@ -57,12 +57,12 @@ class CreateItem extends Component {
 
         <div className="createItemField">
           <label htmlFor="name">Item: </label>
-          <input name="name" placeholder="Doxycycline" onChange={this.updateState}/>
+          <input autoComplete="off" name="name" placeholder="Doxycycline" onChange={this.updateState}/>
         </div>
 
         <div className="createItemField">
           <label htmlFor="idealStock">Ideal Stock: </label>
-          <input name="idealStock" placeholder="1" onChange={this.updateState}/>
+          <input autoComplete="off" name="idealStock" placeholder="1" onChange={this.updateState}/>
         </div>
         
         <Link to='/'>

@@ -34,12 +34,12 @@ function EditItem () {
       <h3>Edit Item:</h3>
       <div className="editItemField">
         <label htmlFor="name">Item: </label>
-        <input name="name" placeholder="Doxycycline" value={inventoryName} onChange={input => setName(input.target.value)}/>
+        <input autoComplete="off" name="name" placeholder="Doxycycline" value={inventoryName} onChange={input => setName(input.target.value)}/>
       </div>
 
       <div className="editItemField">
         <label htmlFor="idealStock">Ideal Stock: </label>
-        <input name="idealStock" placeholder="1" value={idealStock} onChange={input => setIdealStock(input.target.value)}/>
+        <input autoComplete="off" name="idealStock" placeholder="1" value={idealStock} onChange={input => setIdealStock(input.target.value)}/>
       </div>
       <Link to='/'>
         <button onClick={saveItem}>Submit</button>

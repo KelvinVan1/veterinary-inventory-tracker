@@ -7,10 +7,10 @@ function EditItem () {
   const state = useLocation().state;
 
   const [name, setName] = useState(state.itemName);
-  const [dosing, setDosing] = useState('0 ml/kg');
-  const [type, setType] = useState('Liquid');
-  const [remaining, setRemaining] = useState(0);
-  const [expiration, setExpiration] = useState('today');
+  const [dosing, setDosing] = useState(state.dosing);
+  const [type, setType] = useState(state.type);
+  const [remaining, setRemaining] = useState(state.remaining);
+  const [expiration, setExpiration] = useState(state.setExpiration);
 
   function saveItem(){
     const body = {
@@ -40,26 +40,38 @@ function EditItem () {
       <h3>Edit Item:</h3>
       <div className="EditItemField">
         <label htmlFor="name">Item: </label>
-        <input name="name" placeholder="Doxycycline" value={name} onChange={input => setName(input.target.value)}/>
+        <input autoComplete="off" name="name" placeholder="Doxycycline" value={name} onChange={input => setName(input.target.value)}/>
       </div>
 
       <div className="EditItemField">
         <label htmlFor="dosing">Dosing: </label>
-        <input name="dosing" placeholder="0" value={dosing} onChange={input => setDosing(input.target.value)}/>
+        <input autoComplete="off" name="dosing" placeholder="0" value={dosing} onChange={input => setDosing(input.target.value)}/>
+      </div>
+
+      <div className="AddTypeField">
+        <label htmlFor='type'>Type: </label>
+        <select name='type' value={type} onChange={input => setType(input.target.value)}>
+          <optgroup label="Capsules/Tablets">
+            <option value="Tablets">Tablets</option>
+            <option value="Chewable Tablets">Chewable Tablets</option>
+            <option value="Capsules">Capsules</option>
+            <option value="Sprinke Capsules">Sprinkle Capsules</option>
+          </optgroup>
+          <optgroup label="Liquid">
+            <option value="Liquid">Liquid</option>
+            <option value="Eye Drops">Eye Drops</option>
+          </optgroup>
+        </select>
       </div>
 
       <div className="EditItemField">
-        <label htmlFor="type">Type: </label>
-        <input name="type" placeholder="1" value={type} onChange={input => setType(input.target.value)}/>
-      </div>
-      <div className="EditItemField">
         <label htmlFor="remaining">Remaining: </label>
-        <input name="remaining" placeholder="0" value={remaining} onChange={input => setRemaining(input.target.value)}/>
+        <input autoComplete="off" name="remaining" placeholder="0" value={remaining} onChange={input => setRemaining(input.target.value)}/>
       </div>
 
       <div className="EditItemField">
         <label htmlFor="expiration">Expiration: </label>
-        <input name="expiration" placeholder="1" value={expiration} onChange={input => setExpiration(input.target.value)}/>
+        <input autoComplete="off" name="expiration" placeholder="1" value={expiration} onChange={input => setExpiration(input.target.value)}/>
       </div>
 
       <Link to={`/inventory/${id}`} state={{inventoryName: state.inventoryName}}>

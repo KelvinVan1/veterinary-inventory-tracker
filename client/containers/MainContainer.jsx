@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Inventory from '../components/Inventory.jsx';
-import Item from '../components/Item.jsx';
 
 class MainContainer extends Component {
   constructor(props){

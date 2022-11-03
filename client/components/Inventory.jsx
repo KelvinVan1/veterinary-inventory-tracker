@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Inventory extends Component {
   constructor(props){
     super(props);
+
+    this.color = 'green';
+    this.percentage = this.calculatePrecentage();
 
     this.calculatePrecentage = this.calculatePrecentage.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -11,7 +14,19 @@ class Inventory extends Component {
 
   calculatePrecentage(){
     if(this.props.idealStock === 0) return 0;
-    return (this.props.currentStock / this.props.idealStock) * 100;
+    const percentage = (this.props.currentStock / this.props.idealStock) * 100;
+
+    if(percentage <= 30){
+      this.color = 'red';
+    } else if (percentage <= 50){
+      this.color = 'gold';
+    } else if (percentage <= 100){
+      this.color = 'green';
+    } else if (percentage >= 100){
+      this.color = 'blue';
+    }
+
+    return percentage;
   }
 
 
@@ -40,8 +55,8 @@ class Inventory extends Component {
         <td className='ideal-stock'>
           {this.props.idealStock}
         </td>
-        <td className='availability'>
-          {this.calculatePrecentage().toFixed(2)}%
+        <td className='availability' style={{color: this.color}}>
+          {this.percentage.toFixed(2)}%
         </td>
 
         <td className='manage-button'>

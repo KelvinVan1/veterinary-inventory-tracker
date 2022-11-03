@@ -14,6 +14,12 @@ router.post('/', itemController.createItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
+//Post Request to calculate usuage of an item
+router.patch('/calc', itemController.calculateItem, (req, res) => {
+  return res.status(200).send(res.locals.itemList);
+});
+
+
 //Patch Request to update an existing item in inventory
 router.patch('/', itemController.updateItem,  (req, res) => {
   return res.status(200).send(res.locals.item);

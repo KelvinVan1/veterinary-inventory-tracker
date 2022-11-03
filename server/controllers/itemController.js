@@ -1,4 +1,3 @@
-const { Item } = require('../models/itemModel');
 const { Inventory } = require('../models/inventoryModel');
 const mongoose = require('mongoose');
 
@@ -73,6 +72,37 @@ itemController.deleteItem = (req, res, next) => {
       inventory.save();
 
       return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+itemController.calculateItem = (req, res, next) => {
+  const {id, inventoryName, remaining} = req.body;
+
+  Inventory.findOne({inventoryName})
+    .then(inventory => {
+      for(let i = 0; i < inventory.inventoryItems.length; i ++){
+        if(inventory.inventoryItems[i]._id.toString() === id){
+          const updatedItem = inventory.inventoryItems[i];
+
+          updatedItem.remaining -= remaining;
+          updatedItem.remaining = updatedItem.remaining.toString();
+
+          if(updatedItem.remaining <= 0) {
+            res.locals.item = updatedItem;
+            inventory.inventoryItems.splice(i, 1);
+            inventory.save();
+            return next();
+          }
+
+          res.locals.item = updatedItem;
+          inventory.inventoryItems[i] = updatedItem;
+          inventory.save();
+          return next();
+        }
+      }
     })
     .catch(err => {
       return next(err);

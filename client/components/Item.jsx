@@ -26,6 +26,12 @@ class Item extends Component {
           {this.props.expiration}
         </td>
 
+        <td className='calculate-button'>
+          <Link to={`/calculate/${this.props.id}`} state={this.props}>
+            <button>Calculate Usage</button>
+          </Link>
+        </td>
+
         <td className='manage-button'>
           <Link to={`/edit/item/${this.props.id}`} state={this.props}>
             <button>Manage Item</button>
