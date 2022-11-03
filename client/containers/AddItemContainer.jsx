@@ -10,7 +10,7 @@ function CreateItem () {
 
   const [name, setName] = useState('');
   const [dosing, setDosing] = useState('0 ml/kg');
-  const [type, setType] = useState('Liquid');
+  const [type, setType] = useState('Tablets');
   const [remaining, setRemaining] = useState(0);
   const [expiration, setExpiration] = useState('today');
 
@@ -63,6 +63,9 @@ function CreateItem () {
           <optgroup label="Liquid">
             <option value="Liquid">Liquid</option>
             <option value="Eye Drops">Eye Drops</option>
+          </optgroup>
+          <optgroup label="Ointment">
+            <option value="Ointment">Ointment</option>
           </optgroup>
         </select>
       </div>

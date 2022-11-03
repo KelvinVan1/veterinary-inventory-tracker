@@ -10,7 +10,7 @@ function EditItem () {
   const [dosing, setDosing] = useState(state.dosing);
   const [type, setType] = useState(state.type);
   const [remaining, setRemaining] = useState(state.remaining);
-  const [expiration, setExpiration] = useState(state.setExpiration);
+  const [expiration, setExpiration] = useState(state.expiration);
 
   function saveItem(){
     const body = {
@@ -60,6 +60,9 @@ function EditItem () {
           <optgroup label="Liquid">
             <option value="Liquid">Liquid</option>
             <option value="Eye Drops">Eye Drops</option>
+          </optgroup>
+          <optgroup label="Ointment">
+            <option value="Ointment">Ointment</option>
           </optgroup>
         </select>
       </div>
