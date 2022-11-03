@@ -18,12 +18,12 @@ itemController.getItems = (req, res, next) => {
 
 
 itemController.createItem = (req, res, next) => {
-  const {inventoryName, itemName, currentStock, idealStock} = req.body;
+  const {inventoryName, itemName, dosing, type, remaining, expiration} = req.body;
   
   Inventory.findOne({inventoryName})
     .then(inventory =>{
       const objID = mongoose.Types.ObjectId();
-      const newItem = {_id: objID,itemName: itemName, currentStock: currentStock, idealStock: idealStock};
+      const newItem = {_id: objID,itemName, dosing, type, remaining, expiration};
       res.locals.item = newItem;
       inventory.inventoryItems.push(newItem);
       inventory.save();
@@ -32,7 +32,7 @@ itemController.createItem = (req, res, next) => {
 };
 
 itemController.updateItem = (req, res, next) => {
-  const {id, inventoryName, itemName, currentStock, idealStock} = req.body;
+  const {id, inventoryName, itemName, dosing, type, remaining, expiration} = req.body;
 
   Inventory.findOne({inventoryName})
     .then(inventory => {
@@ -40,7 +40,7 @@ itemController.updateItem = (req, res, next) => {
       for(let i = 0; i < inventoryItems.length; i ++){
         
         if(inventoryItems[i]._id.toString() === id){
-          const updatedItem = {_id: inventoryItems[i]._id, itemName, currentStock, idealStock};
+          const updatedItem = {_id: inventoryItems[i]._id, itemName, dosing, type, remaining, expiration};
           res.locals.item = updatedItem;
           inventory.inventoryItems[i] = updatedItem;
           inventory.save();
@@ -54,7 +54,7 @@ itemController.updateItem = (req, res, next) => {
 };
 
 itemController.deleteItem = (req, res, next) => {
-  const {id, inventoryName, itemName, currentStock, idealStock} = req.body;
+  const {id, inventoryName} = req.body;
 
   Inventory.findOne({inventoryName})
     .then(inventory => {
@@ -71,7 +71,7 @@ itemController.deleteItem = (req, res, next) => {
 
       inventory.inventoryItems = newItemList;
       inventory.save();
-      
+
       return next();
     })
     .catch(err => {

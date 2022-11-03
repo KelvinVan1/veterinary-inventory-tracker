@@ -9,16 +9,20 @@ function CreateItem () {
   
 
   const [name, setName] = useState('');
-  const [currentStock, setCurrentStock] = useState(0);
-  const [idealStock, setIdealStock] = useState(0);
+  const [dosing, setDosing] = useState('0 ml/kg');
+  const [type, setType] = useState('Liquid');
+  const [remaining, setRemaining] = useState(0);
+  const [expiration, setExpiration] = useState('today');
 
   function saveItem(){
     const body = {
       id,
       inventoryName: state.inventoryName,
       itemName: name,
-      currentStock,
-      idealStock,
+      dosing,
+      type,
+      remaining,
+      expiration,
     };
 
     fetch('/api/inventory/item', {
@@ -43,14 +47,25 @@ function CreateItem () {
       </div>
 
       <div className="AddItemField">
-        <label htmlFor="currentStock">Current Stock: </label>
-        <input name="currentStock" placeholder="0" onChange={input => setCurrentStock(input.target.value)}/>
+        <label htmlFor="dosing">Dosing: </label>
+        <input name="dosing" placeholder="0" onChange={input => setDosing(input.target.value)}/>
       </div>
 
       <div className="AddItemField">
-        <label htmlFor="idealStock">Ideal Stock: </label>
-        <input name="idealStock" placeholder="1" onChange={input => setIdealStock(input.target.value)}/>
+        <label htmlFor="type">Type: </label>
+        <input name="type" placeholder="1" onChange={input => setType(input.target.value)}/>
       </div>
+      <div className="AddItemField">
+        <label htmlFor="remaining">Remaining: </label>
+        <input name="remaining" placeholder="0" onChange={input => setRemaining(input.target.value)}/>
+      </div>
+
+      <div className="AddItemField">
+        <label htmlFor="expiration">Expiration: </label>
+        <input name="expiration" placeholder="1" onChange={input => setExpiration(input.target.value)}/>
+      </div>
+
+
       <Link to={`/inventory/${id}`} state={{inventoryName: state.inventoryName}}>
         <button onClick={saveItem}>Submit</button>
       </Link>

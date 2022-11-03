@@ -7,16 +7,20 @@ function EditItem () {
   const state = useLocation().state;
 
   const [name, setName] = useState(state.itemName);
-  const [currentStock, setCurrentStock] = useState(state.currentStock);
-  const [idealStock, setIdealStock] = useState(state.idealStock);
+  const [dosing, setDosing] = useState('0 ml/kg');
+  const [type, setType] = useState('Liquid');
+  const [remaining, setRemaining] = useState(0);
+  const [expiration, setExpiration] = useState('today');
 
   function saveItem(){
     const body = {
       id,
       inventoryName: state.inventoryName,
       itemName: name,
-      currentStock,
-      idealStock,
+      dosing,
+      type,
+      remaining,
+      expiration,
     };
 
     fetch('/api/inventory/item', {
@@ -34,20 +38,30 @@ function EditItem () {
   return (
     <div className="edit-item">
       <h3>Edit Item:</h3>
-      <div className="editItemField">
+      <div className="EditItemField">
         <label htmlFor="name">Item: </label>
         <input name="name" placeholder="Doxycycline" value={name} onChange={input => setName(input.target.value)}/>
       </div>
 
-      <div className="editItemField">
-        <label htmlFor="currentStock">Current Stock: </label>
-        <input name="currentStock" placeholder="0" value={currentStock} onChange={input => setCurrentStock(input.target.value)}/>
+      <div className="EditItemField">
+        <label htmlFor="dosing">Dosing: </label>
+        <input name="dosing" placeholder="0" value={dosing} onChange={input => setDosing(input.target.value)}/>
       </div>
 
-      <div className="editItemField">
-        <label htmlFor="idealStock">Ideal Stock: </label>
-        <input name="idealStock" placeholder="1" value={idealStock} onChange={input => setIdealStock(input.target.value)}/>
+      <div className="EditItemField">
+        <label htmlFor="type">Type: </label>
+        <input name="type" placeholder="1" value={type} onChange={input => setType(input.target.value)}/>
       </div>
+      <div className="EditItemField">
+        <label htmlFor="remaining">Remaining: </label>
+        <input name="remaining" placeholder="0" value={remaining} onChange={input => setRemaining(input.target.value)}/>
+      </div>
+
+      <div className="EditItemField">
+        <label htmlFor="expiration">Expiration: </label>
+        <input name="expiration" placeholder="1" value={expiration} onChange={input => setExpiration(input.target.value)}/>
+      </div>
+
       <Link to={`/inventory/${id}`} state={{inventoryName: state.inventoryName}}>
         <button onClick={saveItem}>Submit</button>
       </Link>

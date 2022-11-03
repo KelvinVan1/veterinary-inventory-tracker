@@ -20,9 +20,9 @@ function InventoryItemsContainer () {
       .then(data => {
         const newitemList = [];
         console.log('Data: ', data);
-        data.forEach(({_id, itemName, currentStock, idealStock}) => {
+        data.forEach(({_id, itemName, dosing, type, remaining, expiration}) => {
           newitemList.push(
-            <Item id = {_id} inventoryName = {state.inventoryName} itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock} itemList key={Math.random() * 300}/>
+            <Item id = {_id} inventoryName = {state.inventoryName} itemName = {itemName} dosing = {dosing} type = {type} remaining = {remaining} expiration = {expiration} key={Math.random() * 300}/>
           );
         });
         setItemList(newitemList);
@@ -39,9 +39,10 @@ function InventoryItemsContainer () {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Current Stock</th>  
-            <th>Ideal Stock</th>
-            <th>Availability </th>
+            <th>Dosing</th>
+            <th>Type</th>
+            <th>Remaining</th>  
+            <th>Expiration</th>
             <th>Manage Item</th>
             <th>Delete Item</th> 
           </tr>
