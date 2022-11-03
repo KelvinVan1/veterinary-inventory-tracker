@@ -1,0 +1,54 @@
+const { Inventory } = require('../models/inventoryModel');
+
+const inventoryController = {};
+
+inventoryController.getInventory = (req, res, next) => {
+  Inventory.find({}).exec()
+    .then(data => {
+      res.locals.itemList = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+inventoryController.createInventory = (req, res, next) => {
+  const {inventoryName, currentStock, idealStock} = req.body;
+  Inventory.create({inventoryName, currentStock, idealStock})
+    .then(data => {
+      res.locals.item = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+inventoryController.updateInventory = (req, res, next) => {
+  const {id, inventoryName, currentStock, idealStock} = req.body;
+  Inventory.findByIdAndUpdate(id, {inventoryName, currentStock, idealStock})
+    .then(data => {
+      res.locals.item = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+inventoryController.deleteInventory = (req, res, next) => {
+  const {id} = req.body;
+
+  Inventory.findByIdAndDelete(id)
+    .then(data => {
+      console.log('DELETED');
+      res.locals.item = data;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+module.exports = inventoryController;

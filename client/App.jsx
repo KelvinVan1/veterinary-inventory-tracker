@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MainContainer from './containers/MainContainer.jsx';
+import InventoryItems from './containers/InventoryItemsContainer.jsx';
+import AddInventory from './containers/AddInventoryContainer.jsx';
 import AddItem from './containers/AddItemContainer.jsx';
 import EditItem from './containers/EditItemContainer.jsx';
+import EditInventory from './containers/EditInventoryContainer.jsx';
+import DeleteItem from './containers/deleteContainer.jsx';
 
 
 class App extends Component {
@@ -14,8 +18,12 @@ class App extends Component {
 
           <Routes>
             <Route exact path='/' element={<MainContainer/>}/>
-            <Route path='/add' element={<AddItem/>}/>
-            <Route path='/edit/:id' element={<EditItem/>}/>
+            <Route path='/inventory/:id' element={<InventoryItems/>}/>
+            <Route path='/add/item/:id' element={<AddItem/>}/>
+            <Route path='/add/inventory' element={<AddInventory/>}/>
+            <Route path='/edit/item/:id' element={<EditItem/>}/>
+            <Route path='/edit/inventory/:id' element={<EditInventory/>}/>
+            <Route path='/delete/:id' element={<DeleteItem/>}/>
           </Routes>
 
         </div>

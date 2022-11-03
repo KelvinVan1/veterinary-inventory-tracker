@@ -1,13 +1,14 @@
-const Items = require('../models/itemModel');
+const { Item } = require('../models/itemModel');
+const { Inventory } = require('../models/inventoryModel');
+const mongoose = require('mongoose');
 
 const itemController = {};
 
 itemController.getItems = (req, res, next) => {
-  const items = [];
-
-  Items.find({}).exec()
-    .then(data => {
-      res.locals.itemList = data;
+  const { inventoryName } = req.body;
+  Inventory.findOne({inventoryName}).exec()
+    .then(inventory => {
+      res.locals.itemList = inventory.inventoryItems;
       return next();
     })
     .catch(err => {
@@ -15,24 +16,36 @@ itemController.getItems = (req, res, next) => {
     });
 };
 
+
 itemController.createItem = (req, res, next) => {
-  const {itemName, currentStock, idealStock} = req.body;
-  Items.create({itemName: itemName, currentStock: currentStock, idealStock: idealStock})
-    .then(data => {
-      res.locals.item = data;
+  const {inventoryName, itemName, currentStock, idealStock} = req.body;
+  
+  Inventory.findOne({inventoryName})
+    .then(inventory =>{
+      const objID = mongoose.Types.ObjectId();
+      const newItem = {_id: objID,itemName: itemName, currentStock: currentStock, idealStock: idealStock};
+      res.locals.item = newItem;
+      inventory.inventoryItems.push(newItem);
+      inventory.save();
       return next();
-    })
-    .catch(err => {
-      return next(err);
     });
 };
 
 itemController.updateItem = (req, res, next) => {
-  const {id, itemName, currentStock, idealStock} = req.body;
+  const {id, inventoryName, itemName, currentStock, idealStock} = req.body;
 
-  Items.findByIdAndUpdate(id, {itemName, currentStock, idealStock})
-    .then(data => {
-      res.locals.item = data;
+  Inventory.findOne({inventoryName})
+    .then(inventory => {
+      const inventoryItems = inventory.inventoryItems;
+      for(let i = 0; i < inventoryItems.length; i ++){
+        
+        if(inventoryItems[i]._id.toString() === id){
+          const updatedItem = {_id: inventoryItems[i]._id, itemName, currentStock, idealStock};
+          res.locals.item = updatedItem;
+          inventory.inventoryItems[i] = updatedItem;
+          inventory.save();
+        }
+      }
       return next();
     })
     .catch(err => {
@@ -41,12 +54,24 @@ itemController.updateItem = (req, res, next) => {
 };
 
 itemController.deleteItem = (req, res, next) => {
-  const {id} = req.body;
+  const {id, inventoryName, itemName, currentStock, idealStock} = req.body;
 
-  Items.findByIdAndDelete(id)
-    .then(data => {
-      console.log('DELETED');
-      res.locals.item = data;
+  Inventory.findOne({inventoryName})
+    .then(inventory => {
+      const inventoryItems = inventory.inventoryItems;
+      const newItemList = [];
+      for(let i = 0; i < inventoryItems.length; i ++){
+        if(inventoryItems[i]._id.toString() !== id){
+          newItemList.push(inventoryItems[i]);
+        }
+        else {
+          res.locals.item = inventoryItems[i];
+        }
+      }
+
+      inventory.inventoryItems = newItemList;
+      inventory.save();
+      
       return next();
     })
     .catch(err => {

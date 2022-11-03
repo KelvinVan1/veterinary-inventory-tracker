@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-class CreateItem extends Component {
-  constructor(props){
-    super(props);
 
-    this.state = {
-      itemName: '',
-      currentStock: 0,
-      idealStock: 0
+function CreateItem () {
+
+  const { id } = useParams();
+  const state = useLocation().state;
+  
+
+  const [name, setName] = useState('');
+  const [currentStock, setCurrentStock] = useState(0);
+  const [idealStock, setIdealStock] = useState(0);
+
+  function saveItem(){
+    const body = {
+      id,
+      inventoryName: state.inventoryName,
+      itemName: name,
+      currentStock,
+      idealStock,
     };
 
-    this.saveItem = this.saveItem.bind(this);
-    this.updateState = this.updateState.bind(this);
-  }
-
-  saveItem(){
-    const body = Object.assign(this.state);
-
-    fetch('/api/inventory', {
+    fetch('/api/inventory/item', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -31,59 +34,32 @@ class CreateItem extends Component {
 
   }
 
-  updateState(input){
-    const type = input.target.name;
-    const newState = Object.assign(this.state);
-
-    /* eslint-disable indent */
-    switch(type){
-      case 'name':
-        newState.itemName = input.target.value;
-        break;
-      case 'currentStock':
-        newState.currentStock = input.target.value;
-        break;
-
-      case 'idealStock':
-        newState.idealStock = input.target.value;
-        break;
-        
-      default:
-        break;
-    }
-    /* eslint-enable indent */
-  }
-
-  render() {
-    return (
-      <div className="create-item">
-
-        <div className="createItemField">
-          <label htmlFor="name">Item: </label>
-          <input name="name" placeholder="Doxycycline" onChange={this.updateState}/>
-        </div>
-
-        <div className="createItemField">
-          <label htmlFor="currentStock">Current Stock: </label>
-          <input name="currentStock" placeholder="0" onChange={this.updateState}/>
-        </div>
-
-        <div className="createItemField">
-          <label htmlFor="idealStock">Ideal Stock: </label>
-          <input name="idealStock" placeholder="1" onChange={this.updateState}/>
-        </div>
-        
-        <Link to='/'>
-          <button onClick={this.saveItem}>Submit</button>
-        </Link>
-
-        <Link to='/'>
-          <button>Cancel</button>
-        </Link>
-
+  return(
+    <div className="add-item">
+      <h3>Add Item:</h3>
+      <div className="addItemField">
+        <label htmlFor="name">Item: </label>
+        <input name="name" placeholder="Doxycycline" onChange={input => setName(input.target.value)}/>
       </div>
-    );
-  }
+
+      <div className="AddItemField">
+        <label htmlFor="currentStock">Current Stock: </label>
+        <input name="currentStock" placeholder="0" onChange={input => setCurrentStock(input.target.value)}/>
+      </div>
+
+      <div className="AddItemField">
+        <label htmlFor="idealStock">Ideal Stock: </label>
+        <input name="idealStock" placeholder="1" onChange={input => setIdealStock(input.target.value)}/>
+      </div>
+      <Link to={`/inventory/${id}`} state={{inventoryName: state.inventoryName}}>
+        <button onClick={saveItem}>Submit</button>
+      </Link>
+
+      <Link to={`/inventory/${id}`} state={{inventoryName: state.inventoryName}}>
+        <button>Cancel</button>
+      </Link>
+    </div>
+  );
 }
 
 export default CreateItem;

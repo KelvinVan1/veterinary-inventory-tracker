@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const app = express();
 
+const itemRouter = require('./routes/itemRoute.js');
 const inventoryRouter = require('./routes/inventoryRoute.js');
 
 const PORT = 3000;
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Route Handlers
 app.use('/api/inventory', inventoryRouter);
+app.use('/api/inventory/item', itemRouter);
 
 //Base App handler
 app.get('/', (req, res) => {

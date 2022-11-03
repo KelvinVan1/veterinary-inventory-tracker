@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Inventory from '../components/Inventory.jsx';
 import Item from '../components/Item.jsx';
 
 class MainContainer extends Component {
@@ -13,13 +14,14 @@ class MainContainer extends Component {
 
   componentDidMount(){
     console.log('App Component Mounted');
-    fetch('/api/inventory')
+    fetch('/api/inventory/')
       .then(res => res.json())
       .then(data => {
         const newitemList = [];
-        data.forEach(({_id, itemName, currentStock, idealStock}) => {
+        console.log('Data: ', data);
+        data.forEach(({_id, inventoryName, currentStock, idealStock}) => {
           newitemList.push(
-            <Item id = {_id} itemName = {itemName} currentStock = {currentStock} idealStock = {idealStock} key={Math.floor(Math.random() * 300)}/>
+            <Inventory id = {_id} inventoryName = {inventoryName} currentStock = {currentStock} idealStock = {idealStock} key={Math.floor(Math.random() * 300)}/>
           );
         });
         this.setState({itemList: newitemList});
@@ -61,7 +63,7 @@ class MainContainer extends Component {
 
         </table>
 
-        <Link to='/add'>
+        <Link to='/add/inventory'>
           <button>Add Item!</button>
         </Link>
       </div>

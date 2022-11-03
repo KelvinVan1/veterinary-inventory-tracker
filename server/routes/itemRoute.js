@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-const inventoryController = require('../controllers/inventoryController');
+const itemController = require('../controllers/itemController');
 
 //Get Request which will obtain all items in inventory
-router.get('/', inventoryController.getInventory, (req, res) => {
+router.post('/obtainitems', itemController.getItems, (req, res) => {
   console.log(res.locals.itemList);
   return res.status(200).send(res.locals.itemList);
 });
 
 //Post Request to add new items to inventory
-router.post('/', inventoryController.createInventory,  (req, res) => {
+router.post('/', itemController.createItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
 //Patch Request to update an existing item in inventory
-router.patch('/', inventoryController.updateInventory,  (req, res) => {
+router.patch('/', itemController.updateItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
 //Delete Request to delete an existing item in inventory
-router.delete('/', inventoryController.deleteInventory,  (req, res) => {
+router.delete('/', itemController.deleteItem,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
