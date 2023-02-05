@@ -1,16 +1,27 @@
 import express, { NextFunction, Request, Response } from 'express';
+import {connect, set} from 'mongoose'
 import path from 'path';
+import * as dotenv from 'dotenv'
+dotenv.config()
 
+//Establish connection for MongoDB
+if(process.env.MONGO_URI){
+  const mongoURI: string = process.env.MONGO_URI
+
+  set('strictQuery', false);
+  connect(mongoURI, {
+    dbName: 'Inventory',
+  })
+    .then(() => console.log('Sucessfully connected to MongoDB.'))
+    .catch(err => console.log(err));
+}
+
+//Express
 const app = express()
 const PORT = 5050;
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-
-// serves index.html page
-app.get('/', (req: Request, res: Response) => {
-  return res.sendFile(path.resolve(__dirname, '../../index.html'))
-})
 
 // Catch for invalid request
 app.use('/*', (req: Request, res: Response) => {
