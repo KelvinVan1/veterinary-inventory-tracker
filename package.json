@@ -3,16 +3,17 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "main": "./src/client/electron/index.cts",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "electron": "concurrently \"npm run dev\" \"electron .\"",
+    "build": "concurrently \"tsc\" \"vite build\"",
     "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.7",
-    "electron": "^22.2.0",
     "express": "^4.18.2",
     "mongoose": "^6.9.0",
     "react": "^18.2.0",
@@ -25,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@vitejs/plugin-react": "^3.1.0",
     "concurrently": "^7.6.0",
+    "electron": "^22.2.0",
     "eslint": "^8.33.0",
     "eslint-plugin-react": "^7.32.2",
     "nodemon": "^2.0.20",
