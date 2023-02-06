@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import {connect, set} from 'mongoose'
-import path from 'path';
+import inventoryRouter from './routes/inventoryRoute'
+
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -22,6 +23,8 @@ const PORT = 5050;
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
+app.use('/api/inventory', inventoryRouter);
 
 // Catch for invalid request
 app.use('/*', (req: Request, res: Response) => {
