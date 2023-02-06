@@ -15,12 +15,12 @@ inventoryRouter.post('/', inventoryController.createInventory,  (req, res) => {
 });
 
 //Patch Request to update an existing item in inventory
-inventoryRouter.patch('/', inventoryController.updateInventory,  (req, res) => {
+inventoryRouter.patch('/:id', inventoryController.updateInventory,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 
 //Delete Request to delete an existing item in inventory
-inventoryRouter.delete('/', inventoryController.deleteInventory,  (req, res) => {
+inventoryRouter.delete('/:id', inventoryController.deleteInventory,  (req, res) => {
   return res.status(200).send(res.locals.item);
 });
 

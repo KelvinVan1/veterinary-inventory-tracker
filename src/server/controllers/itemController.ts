@@ -1,6 +1,6 @@
 import Inventory from '../models/inventoryModel';
+import Item from '../models/itemModel';
 import { ItemController } from '../../types/types';
-import * as mongoose from 'mongoose';
 
 const itemController: ItemController = {
   getItems(req, res, next) {
@@ -19,15 +19,17 @@ const itemController: ItemController = {
     const {inventoryName, itemName, dosing, type, remaining, expiration} = req.body;
     
     Inventory.findOne({inventoryName})
-      .then(inventory =>{
-        const objID = new mongoose.Types.ObjectId();
-        const newItem = {_id: objID,itemName, dosing, type, remaining, expiration};
-        res.locals.item = newItem;
+      .then(inventory => {        
         if(inventory) {
-          inventory.inventoryItems.push(newItem);
-          inventory.save();
-          return next();
+          Item.create({itemName, dosing, type, remaining, expiration})
+          .then((newItem) => {
+            res.locals.item = newItem;
+            inventory.inventoryItems.push(newItem);
+            inventory.save()
+          })
+          .then(() => {return next()})
         }
+        else return next()
       });
   },
 

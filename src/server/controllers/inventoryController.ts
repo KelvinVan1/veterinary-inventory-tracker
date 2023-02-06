@@ -30,9 +30,11 @@ const inventoryController: InventoryController = {
   },
 
   updateInventory (req, res, next) {
-    const {id, inventoryName, currentStock, idealStock, category} = req.body;
-    Inventory.findByIdAndUpdate(id, {inventoryName, currentStock, idealStock, category})
-      .then(data => {
+    const {inventoryName, currentStock, idealStock, category} = req.body;
+    const {id} = req.params;
+    console.log(id)
+    Inventory.findByIdAndUpdate(id, {inventoryName, currentStock, idealStock, category}, {new: true})
+    .then(data => {
         res.locals.item = data;
         return next();
       })
@@ -42,11 +44,10 @@ const inventoryController: InventoryController = {
   },
 
   deleteInventory (req, res, next) {
-    const {id} = req.body;
+    const {id} = req.params;
 
     Inventory.findByIdAndDelete(id)
       .then(data => {
-        console.log('DELETED');
         res.locals.item = data;
         return next();
       })
