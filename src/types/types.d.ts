@@ -11,6 +11,7 @@ export interface InventoryController {
 
 export interface ItemController {
   getItems: ResponseObject;
+  getItem: ResponseObject;
   createItem: ResponseObject;
   updateItem: ResponseObject;
   deleteItem: ResponseObject;

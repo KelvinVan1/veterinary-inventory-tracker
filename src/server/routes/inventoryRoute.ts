@@ -5,7 +5,6 @@ const inventoryRouter = Router();
 
 //Get Request which will obtain all items in inventory
 inventoryRouter.get('/', inventoryController.getInventory, (req, res) => {
-  console.log(res.locals.itemList);
   return res.status(200).send(res.locals.itemList);
 });
 
