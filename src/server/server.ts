@@ -1,13 +1,14 @@
 import express, { NextFunction, Request, Response } from 'express';
-import {connect, set} from 'mongoose'
-import inventoryRouter from './routes/inventoryRoute'
+import {connect, set} from 'mongoose';
+import inventoryRouter from './routes/inventoryRoute';
+import itemRouter from './routes/itemRoute'
 
-import * as dotenv from 'dotenv'
-dotenv.config()
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 //Establish connection for MongoDB
 if(process.env.MONGO_URI){
-  const mongoURI: string = process.env.MONGO_URI
+  const mongoURI: string = process.env.MONGO_URI;
 
   set('strictQuery', false);
   connect(mongoURI, {
@@ -18,13 +19,14 @@ if(process.env.MONGO_URI){
 }
 
 //Express
-const app = express()
+const app = express();
 const PORT = 5050;
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.use('/api/inventory', inventoryRouter);
+app.use('/api/item', itemRouter);
 
 // Catch for invalid request
 app.use('/*', (req: Request, res: Response) => {

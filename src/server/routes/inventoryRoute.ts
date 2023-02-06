@@ -1,8 +1,7 @@
 import {Router} from 'express';
+import inventoryController from '../controllers/inventoryController';
 
 const inventoryRouter = Router();
-
-const inventoryController = require('../controllers/inventoryController');
 
 //Get Request which will obtain all items in inventory
 inventoryRouter.get('/', inventoryController.getInventory, (req, res) => {

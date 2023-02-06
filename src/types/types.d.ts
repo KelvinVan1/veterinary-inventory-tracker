@@ -8,3 +8,11 @@ export interface InventoryController {
   updateInventory: ResponseObject;
   deleteInventory: ResponseObject;
 }
+
+export interface ItemController {
+  getItems: ResponseObject;
+  createItem: ResponseObject;
+  updateItem: ResponseObject;
+  deleteItem: ResponseObject;
+  calculateItem: ResponseObject;
+}
