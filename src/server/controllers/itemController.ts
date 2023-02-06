@@ -1,8 +1,6 @@
 import Inventory from '../models/inventoryModel';
-import Item from '../models/itemModel';
-import * as mongoose from 'mongoose'
+import {Types as MongooseType} from 'mongoose'
 import { ItemController } from '../../types/types';
-import { parsePath } from 'react-router-dom';
 
 const itemController: ItemController = {
   getItems(req, res, next) {
@@ -20,7 +18,7 @@ const itemController: ItemController = {
   getItem(req, res, next){
     const {id} = req.params;
 
-    Inventory.findOne({'inventoryItems._id': new mongoose.Types.ObjectId(id)}, {inventoryItems: {$elemMatch: {_id: new mongoose.Types.ObjectId(id)}}})
+    Inventory.findOne({'inventoryItems._id': new MongooseType.ObjectId(id)}, {inventoryItems: {$elemMatch: {_id: new MongooseType.ObjectId(id)}}})
     .then((data) => {
       if(data){
         res.locals.item = data.inventoryItems[0];
@@ -33,7 +31,7 @@ const itemController: ItemController = {
     const {itemName, dosing, type, remaining, expiration} = req.body;
     const {id} = req.params
     
-    const newItem = {_id: new mongoose.Types.ObjectId(), itemName, dosing, type, remaining, expiration}
+    const newItem = {_id: new MongooseType.ObjectId(), itemName, dosing, type, remaining, expiration}
     Inventory.updateOne({_id: id}, {$push : {inventoryItems: newItem}})
       .then(() => {  
         res.locals.item = newItem;     
@@ -45,7 +43,7 @@ const itemController: ItemController = {
     const {itemName, dosing, type, remaining, expiration} = req.body;
     const {id} = req.params;
 
-    const itemId = new mongoose.Types.ObjectId(id);
+    const itemId = new MongooseType.ObjectId(id);
     const updatedItem = {_id: itemId, itemName, dosing, type, remaining, expiration}
     Inventory.updateOne({"inventoryItems._id": itemId}, 
                         {$set: {'inventoryItems.$': updatedItem}})
@@ -63,7 +61,7 @@ const itemController: ItemController = {
   deleteItem(req, res, next) {
     const {id} = req.params;
 
-    const itemId = new mongoose.Types.ObjectId(id);
+    const itemId = new MongooseType.ObjectId(id);
     Inventory.updateOne({"inventoryItems._id": itemId}, 
                         {$pull: {"inventoryItems": {_id: itemId}}})
     .then((data) => {
@@ -78,20 +76,20 @@ const itemController: ItemController = {
   calculateItem(req, res, next) {
     const {usage} = req.body;
     const {id} = req.params;
+
+    const itemId = new MongooseType.ObjectId(id);
     const updatedItem = res.locals.item;
 
-    updatedItem.remaining -= usage
-
-    const itemId = new mongoose.Types.ObjectId(id);
+    updatedItem.remaining -= usage;
     if(updatedItem.remaining <= 0){
       Inventory.updateOne({"inventoryItems._id": itemId}, 
         {$pull: {"inventoryItems": {_id: itemId}}})
-        .then((data) => {res.locals.modified = data.modifiedCount})
+        .then((data) => {res.locals.modified = data.modifiedCount});
     } 
     else {
       Inventory.updateOne({"inventoryItems._id": itemId}, 
         {$set: {'inventoryItems.$': updatedItem}})
-        .then(() => res.locals.modified = updatedItem)
+        .then(() => res.locals.modified = updatedItem);
     }
     return next();
   }

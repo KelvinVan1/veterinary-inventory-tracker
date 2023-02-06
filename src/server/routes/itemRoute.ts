@@ -32,7 +32,7 @@ itemRouter.patch('/:id', itemController.updateItem,  (req, res) => {
 
 //Delete Request to delete an existing item in inventory
 itemRouter.delete('/:id', itemController.deleteItem,  (req, res) => {
-  return res.status(200).send(res.locals.modified);
+  return res.status(200).send(`Modified: ${res.locals.modified}`);
 });
 
 export default itemRouter;
