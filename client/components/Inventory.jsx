@@ -19,7 +19,7 @@ class Inventory extends Component {
     if(percentage <= 30){
       this.color = 'red';
     } else if (percentage <= 50){
-      this.color = 'gold';
+      this.color = '#FFFAA0';
     } else if (percentage <= 100){
       this.color = 'green';
     } else if (percentage >= 100){

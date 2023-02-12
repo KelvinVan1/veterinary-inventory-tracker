@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
+require('dotenv').config();
 
 const app = express();
 
@@ -14,7 +15,7 @@ const PORT = 3000;
 
 //Grabs mongoURI from Atlas connect
 try {
-  const mongoURI = fs.readFileSync(path.resolve(__dirname, '../DatabasePass.txt'), 'utf-8');
+  const mongoURI = process.env.MONGO_URI;
   //Connect to database at mongoURI
   mongoose.connect(mongoURI)
     .then(() => {
