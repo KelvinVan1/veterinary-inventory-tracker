@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
+//Backend
 export type ResponseObject = (req: Request, res: Response, next: NextFunction) => void;
 
 export interface InventoryController {
@@ -17,3 +18,6 @@ export interface ItemController {
   deleteItem: ResponseObject;
   calculateItem: ResponseObject;
 }
+
+//Frontend
+export type inventoryItem = {id: string, name: string, currentStock: number, idealStock: number, category: string}

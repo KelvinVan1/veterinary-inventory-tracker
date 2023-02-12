@@ -6,7 +6,7 @@ const itemRouter = Router()
 
 //Request which will obtain all items in inventory
 itemRouter.get('/:id', itemController.getItems, (req, res) => {
-  return res.status(200).send(res.locals.itemList);
+  return res.status(200).json(res.locals.itemList);
 });
 
 
