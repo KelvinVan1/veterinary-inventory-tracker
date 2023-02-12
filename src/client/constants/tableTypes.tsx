@@ -12,7 +12,8 @@ export const columns: GridColDef[] = [
     sortable: false,
     
     renderCell: (params) => {
-        const onClick = (e) => {
+        const onClick = (event: React.MouseEvent) => {
+          event.preventDefault();
           const currentRow = params.row;
           return alert(JSON.stringify(currentRow, null, 4));
         };
