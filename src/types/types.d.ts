@@ -20,4 +20,5 @@ export interface ItemController {
 }
 
 //Frontend
-export type inventoryItem = {id: string, name: string, currentStock: number, idealStock: number, category: string}
+export type inventoryItem = {_id: string, inventoryName: string, currentStock: number, idealStock: number, category: string}
+export type inventoryItemColumn = {id: string, name: string, currentStock: number, idealStock: number, category: string}

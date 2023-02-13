@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import {Schema, model} from 'mongoose';
 
 const inventorySchema = new Schema({
   inventoryName: {type: String, required: true, unique: true},
@@ -10,4 +10,4 @@ const inventorySchema = new Schema({
 }, {collection: 'Inventory'});
 const Inventory = model('Inventory', inventorySchema);
 
-export default Inventory
+export default Inventory;

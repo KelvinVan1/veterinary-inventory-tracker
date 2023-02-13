@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import {connect, set} from 'mongoose';
 import inventoryRouter from './routes/inventoryRoute';
-import itemRouter from './routes/itemRoute'
+import itemRouter from './routes/itemRoute';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -30,7 +30,7 @@ app.use('/api/item', itemRouter);
 
 // Catch for invalid request
 app.use('/*', (req: Request, res: Response) => {
-  return res.status(404).send("Invalid Page");
+  return res.status(404).send('Invalid Page');
 });
 
 // Global error catching

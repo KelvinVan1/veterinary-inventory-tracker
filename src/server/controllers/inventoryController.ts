@@ -32,9 +32,9 @@ const inventoryController: InventoryController = {
   updateInventory (req, res, next) {
     const {inventoryName, currentStock, idealStock, category} = req.body;
     const {id} = req.params;
-    console.log(id)
+    console.log(id);
     Inventory.findByIdAndUpdate(id, {inventoryName, currentStock, idealStock, category}, {new: true})
-    .then(data => {
+      .then(data => {
         res.locals.item = data;
         return next();
       })

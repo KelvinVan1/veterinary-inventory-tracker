@@ -1,14 +1,13 @@
 import {Router} from 'express';
-import itemController from '../controllers/itemController'
+import itemController from '../controllers/itemController';
 
-const itemRouter = Router()
+const itemRouter = Router();
 
 
 //Request which will obtain all items in inventory
 itemRouter.get('/:id', itemController.getItems, (req, res) => {
   return res.status(200).json(res.locals.itemList);
 });
-
 
 //Request which will obtain one specific item in inventory
 itemRouter.get('/single/:id', itemController.getItem, (req, res) => {

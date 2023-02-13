@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const {app, BrowserWindow} = require('electron');
-const path = require('path')
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -9,8 +9,8 @@ const createWindow = () => {
 
   mainWindow.loadURL('http://localhost:5173');
   mainWindow.webContents.openDevTools();
-}
+};
 
 app.whenReady().then(() => {
-  createWindow()
-})
+  createWindow();
+});

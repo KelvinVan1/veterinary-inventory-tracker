@@ -1,12 +1,13 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider} from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Inventory from './pages/inventory';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Inventory/>,
   },
 ]);
@@ -24,4 +25,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <RouterProvider router={router} />
   </ThemeProvider>
   // </React.StrictMode>,
-)
+);
