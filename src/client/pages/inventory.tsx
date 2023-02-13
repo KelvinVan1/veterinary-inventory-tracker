@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react'
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import {columns} from '../constants/tableTypes'
-import { inventoryItem } from '../../types/types';
+import {columns} from '../constants/tableTypes';
+import { inventoryItem, inventoryItemColumn } from '../../types/types';
 
 function Inventory() {
-  const [inventoryItems, setInventoryItems] = useState<inventoryItem[]>([])
+  const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
 
   async function generateItems(){
     const items = await fetch('/api/inventory').then((data) => data.json());
-    const result: inventoryItem[] = [];
+    const result: inventoryItemColumn[] = [];
 
-    items.forEach((elem: any) => {
-      const {_id, inventoryName, currentStock, idealStock, category} = elem
-      result.push({ id: _id, name: inventoryName, currentStock, idealStock, category})
-    })
-    setInventoryItems(result)
+    items.forEach((elem: inventoryItem) => {
+      const {_id, inventoryName, currentStock, idealStock, category} = elem;
+      result.push({ id: _id, name: inventoryName, currentStock, idealStock, category});
+    });
+    setInventoryItems(result);
   }
 
   useEffect(() => {
     generateItems();
-  }, [inventoryItems.length])
+  }, [inventoryItems.length]);
 
   return (
     <div className="Inventory" style={{ height: 600, width: '100%' }}>
@@ -31,7 +32,7 @@ function Inventory() {
         checkboxSelection
       />
     </div> 
-  )
+  );
 }
 
-export default Inventory
+export default Inventory;

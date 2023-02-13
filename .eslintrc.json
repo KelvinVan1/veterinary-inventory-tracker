@@ -1,4 +1,5 @@
 {
+  "parser": "@typescript-eslint/parser",
   "root": true,
   "ignorePatterns": ["**/test", "**/__tests__"],
   "env": {
@@ -6,8 +7,8 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": ["react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react", "@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
