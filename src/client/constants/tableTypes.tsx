@@ -1,6 +1,6 @@
 import { GridCellParams } from '@mui/x-data-grid';
 import { GridColDef } from '@mui/x-data-grid/models/colDef';
-import { genButton, manageInventoryButton } from '../helperFunctions/buttons';
+import { genButton, manageInventoryButton, deleteInventoryButton, editInventoryButton } from '../helperFunctions/buttons';
 
 export const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 100, flex: 1},
@@ -21,7 +21,7 @@ export const columns: GridColDef[] = [
     minWidth: 100,
     flex: 1,
     sortable: false,
-    renderCell: (params: GridCellParams) => {return genButton(params, 'Edit Details', manageInventoryButton);},
+    renderCell: (params: GridCellParams) => {return genButton(params, 'Edit Details', editInventoryButton);},
   },
   {
     field: 'delete',
@@ -29,6 +29,6 @@ export const columns: GridColDef[] = [
     minWidth: 100,
     flex: 1,
     sortable: false,
-    renderCell: (params: GridCellParams) => {return genButton(params, 'Delete', manageInventoryButton);},
+    renderCell: (params: GridCellParams) => {return genButton(params, 'Delete', deleteInventoryButton);},
   }
 ];

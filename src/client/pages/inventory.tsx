@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import {columns} from '../constants/tableTypes';
 import { inventoryItem, inventoryItemColumn } from '../../types/types';
+import Button from '@mui/material/Button';
 
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
@@ -24,6 +25,7 @@ function Inventory() {
 
   return (
     <div className="Inventory" style={{ height: 600, width: '100%' }}>
+      <h1>Veterinary Inventory Tracker</h1>
       <DataGrid
         rows={inventoryItems}
         columns={columns}
@@ -31,6 +33,7 @@ function Inventory() {
         rowsPerPageOptions={[5]}
         checkboxSelection
       />
+      <Button variant="outlined">Add Item</Button>
     </div> 
   );
 }
