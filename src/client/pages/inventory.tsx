@@ -1,12 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { inventoryItem, inventoryItemColumn } from '../../types/types';
+import InventoryAdd from './addInventory';
+
 import { DataGrid} from '@mui/x-data-grid';
 import {columns} from '../constants/tableTypes';
-import { inventoryItem, inventoryItemColumn } from '../../types/types';
 import Button from '@mui/material/Button';
+
 
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
+  const [addItem, setAddItem] = useState(false);
 
   async function generateItems(){
     const items = await fetch('/api/inventory').then((data) => data.json());
@@ -33,7 +37,8 @@ function Inventory() {
         rowsPerPageOptions={[5]}
         checkboxSelection
       />
-      <Button variant="outlined">Add Item</Button>
+      <Button onClick={() => {setAddItem(true);}} variant="outlined">Add Item</Button>
+      {addItem && <InventoryAdd addItem={addItem} setAddItem={setAddItem}/>}
     </div> 
   );
 }
