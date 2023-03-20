@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField/';
-import { inventoryAddPageProps } from '../../types/types';
+import { inventoryAddPageProps } from '../../../types/types';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,8 +10,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
 
-function InventoryAdd(props:inventoryAddPageProps) {
-  const {addItem, setAddItem} = props;
+function InventoryAdd(props: inventoryAddPageProps) {
+  const {addItem, setAddItem, setUpdated} = props;
 
   const [inventoryName, setInventoryName] = useState('');
   const [idealStock, setIdealStock] = useState('0');
@@ -19,6 +19,7 @@ function InventoryAdd(props:inventoryAddPageProps) {
 
   async function addNewItem() {
     setAddItem(false);
+    setUpdated(true);
     await fetch('/api/inventory', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

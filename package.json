@@ -8,7 +8,7 @@
     "vite": "vite",
     "server": "nodemon ./src/server/server.ts",
     "electron": "concurrently \"npm run vite\" \"npm run server\" \"electron .\"",
-    "sole-electron": "electron .",
+    "electron:solo": "electron .",
     "build": "concurrently \"tsc\" \"vite build\"",
     "preview": "vite preview"
   },
@@ -16,10 +16,10 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.7",
-    "@mui/x-data-grid": "^5.17.23",
+    "@mui/x-data-grid": "^6.0.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.9.0",
+    "mongoose": "^7.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0"
@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.32.2",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
+    "typescript": "^5.0.2",
     "vite": "^4.1.0"
   }
 }

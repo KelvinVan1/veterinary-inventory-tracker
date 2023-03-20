@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import React from 'react';
 //Backend
 export type ResponseObject = (req: Request, res: Response, next: NextFunction) => void;
 
@@ -23,4 +24,4 @@ export type inventoryItem = {_id: string, inventoryName: string, currentStock: n
 export type inventoryItemColumn = {id: string, name: string, currentStock: number, idealStock: number, category: string}
 
 //Page Props
-export type inventoryAddPageProps = {addItem: boolean, setAddItem: React.Dispatch<React.SetStateAction>}
+export type inventoryAddPageProps = {addItem: boolean, setAddItem: React.Dispatch<React.SetStateAction>, setUpdated: React.Dispatch<React.SetStateAction>}
