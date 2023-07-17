@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Inventory from './pages/inventory/inventory';
 import Login from './pages/Login';
+import './index.css';
 
 const router = createBrowserRouter([
   {
