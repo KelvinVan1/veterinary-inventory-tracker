@@ -20,6 +20,8 @@
     "no-unused-vars": ["off", { "vars": "local" }],
     "no-case-declarations": "off",
     "prefer-const": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
     "quotes": ["warn", "single"],
     "react/prop-types": "off",
     "semi": ["warn", "always"],
