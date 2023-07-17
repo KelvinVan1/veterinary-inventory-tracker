@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 
-# Env
+# Environment
 .env
+config.json

@@ -1,21 +1,16 @@
 import express, { NextFunction, Request, Response } from 'express';
-import {connect, set} from 'mongoose';
 import inventoryRouter from './routes/inventoryRoute';
 import itemRouter from './routes/itemRoute';
+import {configLoader, databaseConnect} from '../helpers/setupHelpers';
+import { configData } from '../types/types';
 
-import * as dotenv from 'dotenv';
-dotenv.config();
+
+//Grab configuration data
+const config: configData = configLoader();
 
 //Establish connection for MongoDB
-if(process.env.MONGO_URI){
-  const mongoURI: string = process.env.MONGO_URI;
-
-  set('strictQuery', false);
-  connect(mongoURI, {
-    dbName: 'Inventory',
-  })
-    .then(() => console.log('Sucessfully connected to MongoDB.'))
-    .catch(err => console.log(err));
+if(config.MONGO_URI){
+  databaseConnect(config.MONGO_URI);
 }
 
 //Express

@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import React from 'react';
+
+//Configuration
+export type configData = {MONGO_URI: string};
+
 //Backend
 export type ResponseObject = (req: Request, res: Response, next: NextFunction) => void;
 
