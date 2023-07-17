@@ -3,6 +3,7 @@ import inventoryRouter from './routes/inventoryRoute';
 import itemRouter from './routes/itemRoute';
 import {configLoader, databaseConnect} from '../helpers/setupHelpers';
 import { configData } from '../types/types';
+import {resolve} from 'path';
 
 
 //Grab configuration data
@@ -20,13 +21,15 @@ const PORT = 5050;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use('/api/assets', express.static(resolve(__dirname, '../client/assets')));
+
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/item', itemRouter);
 
 // Catch for invalid request
-app.use('/*', (req: Request, res: Response) => {
-  return res.status(404).send('Invalid Page');
-});
+// app.use('/*', (req: Request, res: Response) => {
+//   return res.status(404).send('Invalid Page');
+// });
 
 // Global error catching
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

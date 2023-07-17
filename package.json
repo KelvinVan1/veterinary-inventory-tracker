@@ -2,9 +2,9 @@
   "name": "veterinary-inventory-tracker",
   "private": true,
   "version": "1.0.0",
-  "main": "./src/client/electron/index.cts",
+  "main": "./src/client/electron/index.ts",
   "scripts": {
-    "dev": "concurrently \"vite\" \"npm run server\"",
+    "dev": "concurrently \"npm run server\" \"vite\"",
     "vite": "vite",
     "server": "nodemon ./src/server/server.ts",
     "electron": "concurrently \"npm run vite\" \"npm run server\" \"electron .\"",
