@@ -1,12 +1,18 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Inventory from './pages/inventory/inventory';
-import Login from './pages/Login';
+import Startup from './startup';
+import Login from './pages/login';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Startup/>,
+  },
+
+  {
+    path: '/Login',
     element: <Login/>,
   },
 

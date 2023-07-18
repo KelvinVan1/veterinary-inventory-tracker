@@ -1,29 +1,35 @@
 import {readFileSync} from 'fs';
 import {resolve} from 'path';
 import {configData} from '../types/types';
-import {connect, set} from 'mongoose';
+import {Mongoose} from 'mongoose';
+
+const mongoose = new Mongoose();
 
 const configLoader = () => {
   try {
     const data: string = readFileSync(resolve(__dirname, '../../config.json'), 'utf-8');
-    const paresedData: configData = JSON.parse(data);
+    const parsedData: configData = JSON.parse(data);
 
-    return paresedData;
+    return parsedData;
   }
   catch {
-    throw new Error('Error occured while attempting to read configuration');
+    throw new Error('Unable to read configuration possibly does not exist yet');
   }
 };
 
 const databaseConnect = (URI: string) : void => {
   const mongoURI: string = URI;
 
-  set('strictQuery', false);
-  connect(mongoURI, {
+  mongoose.set('strictQuery', false);
+  mongoose.connect(mongoURI, {
     dbName: 'Inventory',
   })
     .then(() => console.log('Sucessfully connected to MongoDB.'))
     .catch(err => console.log(err));
 };
 
-export {configLoader, databaseConnect};
+const databaseVerifyConnection = () => {
+  return mongoose.connection.readyState;
+};
+
+export {configLoader, databaseConnect, databaseVerifyConnection};
