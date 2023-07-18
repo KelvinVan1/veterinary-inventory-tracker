@@ -27,9 +27,9 @@ app.use('/api/inventory', inventoryRouter);
 app.use('/api/item', itemRouter);
 
 // Catch for invalid request
-// app.use('/*', (req: Request, res: Response) => {
-//   return res.status(404).send('Invalid Page');
-// });
+app.use('/*', (req: Request, res: Response) => {
+  return res.status(404).send('Invalid Page');
+});
 
 // Global error catching
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
