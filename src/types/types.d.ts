@@ -7,6 +7,10 @@ export type configData = {MONGO_URI: string};
 //Backend
 export type ResponseObject = (req: Request, res: Response, next: NextFunction) => void;
 
+export interface accountController {
+  login: ResponseObject;
+}
+
 export interface InventoryController {
   getInventory: ResponseObject;
   createInventory: ResponseObject;

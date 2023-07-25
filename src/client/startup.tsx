@@ -47,7 +47,7 @@ const Startup = () => {
   // Handles redirecting to the login page after the db is setup and online
   useEffect(() => {
     if(dbState === 1){
-      window.location.href += 'Login';
+      window.location.assign('/Login');
     }
   }, [dbState]);
 

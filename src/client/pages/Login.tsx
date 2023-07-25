@@ -1,4 +1,31 @@
+import { FormEvent, useState } from 'react';
+
 const Login = () => {
+
+  const [invalidLogin, setInvalidLogin] = useState(false);
+
+  const handleLogin = async (event: FormEvent) => {
+    try {
+      event.preventDefault();
+      const data = new FormData(event.target as HTMLFormElement);
+      const username = data.get('username');
+      const password = data.get('password');
+  
+      const request = await fetch('/api/account/login', {
+        method : 'POST',
+        headers: {'content-type': 'application/json'},
+        body : JSON.stringify({username, password})
+      });
+  
+      if(request.status === 401) setInvalidLogin(true);
+      else {
+        window.location.assign('/Inventory');
+      }
+    } catch {
+      console.log('An Error has occured when attempting to login');
+    }
+  };
+
 
   return(
     <section className=" bg-gray-900">
@@ -14,15 +41,17 @@ const Login = () => {
             <h1 className="text-2xl">
             Sign in to your account
             </h1>
-            <form onSubmit={() => console.log('placehold')} className="space-y-5">
+            <form id="test" onSubmit={handleLogin} className="space-y-5">
               {/* Credentials */}
               <div>
                 <label htmlFor="username" className="block pb-3 text-md">Username</label>
-                <input type="text" id="username" placeholder="username" className="block border rounded-md w-full p-1.5 border-gray-700 bg-gray-600 text-gray-100"></input>
+                <input type="text" name='username' placeholder="username" className="block border rounded-md w-full p-1.5 border-gray-700 bg-gray-600 text-gray-100"></input>
               </div>
               <div>
-                <label htmlFor="Password" className="block pb-3 text-md">Password</label>
-                <input type="password" id="password" placeholder="******" className="block border rounded-md w-full p-1.5 border-gray-700 bg-gray-600 text-gray-100"></input>
+                <label htmlFor="password" className="block pb-3 text-md">Password</label>
+                <input type="password" name='password' placeholder="******" className="block border rounded-md w-full p-1.5 border-gray-700 bg-gray-600 text-gray-100"></input>
+                {/* Invalid Credential display if login attempt fails */}
+                {invalidLogin && <p className='text-red-600 text-sm'>invalid credentials</p>}
               </div>
               {/* Login */}
               <button type="submit" className="w-full border border-blue-700 bg-blue-600 rounded-md p-1">Login</button>

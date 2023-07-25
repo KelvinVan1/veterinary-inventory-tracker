@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import inventoryRouter from './routes/inventoryRoute';
 import itemRouter from './routes/itemRoute';
+import accountRouter from './routes/accountRoute';
 import {configLoader, databaseConnect, databaseVerifyConnection} from '../helpers/setupHelpers';
 import { configData } from '../types/types';
 import {resolve} from 'path';
@@ -27,6 +28,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/api/assets', express.static(resolve(__dirname, '../client/assets')));
 
+app.use('/api/account', accountRouter);
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/item', itemRouter);
 
