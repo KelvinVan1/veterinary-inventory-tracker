@@ -1,9 +1,9 @@
 import {readFileSync} from 'fs';
 import {resolve} from 'path';
 import {configData} from '../types/types';
-import {Mongoose} from 'mongoose';
+import {Mongoose, connect} from 'mongoose';
 
-const mongoose = new Mongoose();
+let mongoose: Mongoose;
 
 const configLoader = () => {
   try {
@@ -20,11 +20,14 @@ const configLoader = () => {
 const databaseConnect = (URI: string) : void => {
   const mongoURI: string = URI;
 
-  mongoose.set('strictQuery', false);
-  mongoose.connect(mongoURI, {
+
+  connect(mongoURI, {
     dbName: 'Inventory',
   })
-    .then(() => console.log('Sucessfully connected to MongoDB.'))
+    .then((data) => {
+      mongoose = data;
+      console.log('Sucessfully connected to MongoDB.');
+    })
     .catch(err => console.log(err));
 };
 
