@@ -9,7 +9,7 @@ const Startup = () => {
   const checkConfig = async () => {
     try{
       if(configStatus === false){
-        const request = await fetch('/api/config');
+        const request = await fetch('/api/setup/config');
         const response = await request.json();
         if(response.status === 1) {
           setConfigStatus(true);
@@ -24,10 +24,10 @@ const Startup = () => {
 
   // Checks to see if the database has been connected to
   const checkDB = async () => {
-    const request = await fetch('/api/status');
+    const request = await fetch('/api/setup/status');
     const response = await request.json();
     if(response.status === 0) {
-      await fetch('/api/load');
+      await fetch('/api/setup/load');
     }
     else setDbState(1);
   };

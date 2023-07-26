@@ -2,9 +2,10 @@ import express, { NextFunction, Request, Response } from 'express';
 import inventoryRouter from './routes/inventoryRoute';
 import itemRouter from './routes/itemRoute';
 import accountRouter from './routes/accountRoute';
-import {configLoader, databaseConnect, databaseVerifyConnection} from '../helpers/setupHelpers';
+import {configLoader, databaseConnect} from '../helpers/setupHelpers';
 import { configData } from '../types/types';
 import {resolve} from 'path';
+import setupRouter from './routes/setupRoute';
 
 //Grab configuration data
 try{
@@ -18,7 +19,6 @@ try{
   console.log('Unable to load config at this time (inital launch)');
 }
 
-
 //Express
 const app = express();
 const PORT = 5050;
@@ -28,43 +28,10 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/api/assets', express.static(resolve(__dirname, '../client/assets')));
 
+app.use('/api/setup', setupRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/item', itemRouter);
-
-
-// Check config exists
-app.use('/api/config', (req, res) => {
-  try {
-    configLoader();
-    return res.status(200).json({status: 1});
-  } catch {
-    return res.status(200).json({status: 0});
-  }
-});
-
-//Check DB connection status
-app.use('/api/status', (req, res) => {
-  
-  const status = databaseVerifyConnection();
-  res.status(200).json({status});
-});
-
-//load DB
-app.use('/api/load', async (req, res) => {
-  try{
-    const config: configData = configLoader();
-  
-    //Establish connection for MongoDB
-    if(config.MONGO_URI){
-      databaseConnect(config.MONGO_URI);
-      return res.sendStatus(200);
-    }
-  } catch {
-    console.log('Unable to connect to DB');
-    return res.sendStatus(500);
-  }
-});
 
 // Catch for invalid request
 app.use('/*', (req: Request, res: Response) => {
