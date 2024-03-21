@@ -1,48 +1,68 @@
 import { useEffect, useState } from 'react';
 import { inventoryItem, inventoryItemColumn } from '../../../types/types';
-import InventoryAdd from './addInventory';
+import InventoryType from '../../components/inventoryType';
+
 
 
 
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
   const [addItem, setAddItem] = useState(false);
-  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {generateItems();}, []);
 
-  useEffect(() => {
-    if(updated){
-      console.log('Run');
-      generateItems();
-      setUpdated(false);
-    }
-  }, [updated]); 
-
   async function generateItems(){
-    const items = await fetch('/api/inventory').then((data) => data.json());
-    const result: inventoryItemColumn[] = [];
+    const request = await fetch('/api/inventory');
+    const items = await request.json();
+    const result = [];
 
-    items.forEach((elem: inventoryItem) => {
-      const {_id, inventoryName, currentStock, idealStock, category} = elem;
-      result.push({ id: _id, name: inventoryName, currentStock, idealStock, category});
+    items.forEach(element => {
+      const {category, currentStock, idealStock, inventoryItems, inventoryName, _id} = element;
+      result.push(
+        <InventoryType 
+          category={category} 
+          currentStock={currentStock} 
+          idealStock={idealStock} 
+          inventoryItems={inventoryItems} 
+          inventoryName={inventoryName} 
+          id={_id}>
+        </InventoryType>);
     });
+
     setInventoryItems(result);
   }
 
+  console.log(inventoryItems);
   return (
-    <div>TEMP</div>
-    // <Box className="Inventory" sx={{ height: 600, width: 1, padding: 4 }}>
-    //   <h1>Veterinary Inventory Tracker</h1>
-    //   <DataGrid
-    //     rows={inventoryItems}
-    //     columns={columns}
-    //     checkboxSelection = {false}
-    //     rowSelection = {false}
-    //   />
-    //   <Button onClick={() => {setAddItem(true)}} variant="outlined">Add Item</Button>
-    //   {addItem && <InventoryAdd addItem={addItem} setAddItem={setAddItem} setUpdated={setUpdated}/>}
-    // </Box> 
+    <section className="bg-gray-900 text-white ">
+      <div className="flex flex-col px-6 py-8 mx-auto h-screen overflow-x-auto">
+        {/* Logo and app name */}
+        <div>
+          <p className="flex mb-6 text-2xl font-semibold">
+            <img className="w-8 h-8 mr-2" src="../api/assets/images/cat.png" alt="logo"/>
+          VetTrack Inventory
+          </p>
+        </div>
+        {/* Item table */}
+        <table className='border bg-gray-800 border-gray-700 w-full rounded-lg border-separate border-spacing-3'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Current Stock</th>  
+              <th>Ideal Stock</th>
+              <th>Category</th>
+              <th>Availability </th>
+              <th>Manage Item</th>
+              <th>Edit Details</th>
+              <th>Delete Item</th> 
+            </tr>
+          </thead>
+          <tbody>
+            {inventoryItems}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 

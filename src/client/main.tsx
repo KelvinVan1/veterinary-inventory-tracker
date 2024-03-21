@@ -16,6 +16,11 @@ const router = createBrowserRouter([
     element: <Login/>,
   },
 
+  {
+    path: '/Inventory',
+    element: <Inventory/>    
+  }
+
   //Catch path (this is a temporary solution will have this direct to an error page later)
   // {
   //   path: '*',

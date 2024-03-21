@@ -13,8 +13,8 @@ const Startup = () => {
         const response = await request.json();
         if(response.status === 1) {
           setConfigStatus(true);
-        }
-        setLoading(false);
+        } 
+        else setLoading(false);
       }
     } catch {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -40,6 +40,7 @@ const Startup = () => {
   // Checks on the status of the db and start up if not already once config loads
   useEffect(() => {
     if(configStatus === true){
+      setLoading(true);
       checkDB();
     }
   }, [configStatus]);
