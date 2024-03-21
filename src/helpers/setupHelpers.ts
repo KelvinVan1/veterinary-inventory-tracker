@@ -7,7 +7,7 @@ let mongoose: Mongoose;
 
 const configLoader = () => {
   try {
-    const data: string = readFileSync(resolve(__dirname, '../../config.json'), 'utf-8');
+    const data: string = readFileSync(resolve(__dirname, '../config.json'), 'utf-8');
     const parsedData: configData = JSON.parse(data);
 
     return parsedData;

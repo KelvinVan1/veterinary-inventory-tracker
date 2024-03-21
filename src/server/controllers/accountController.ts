@@ -1,6 +1,6 @@
-import { accountController } from '../../types/types';
+import { accountResponse } from '../../types/types';
 
-const accountController: accountController = {
+const accountController: accountResponse = {
   login(req, res, next){
     const {username, password} = req.body;
 

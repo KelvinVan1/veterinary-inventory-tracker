@@ -26,7 +26,7 @@ const PORT = 5050;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use('/api/assets', express.static(resolve(__dirname, '../client/assets')));
+app.use('/api/assets', express.static(resolve(__dirname, '../src/client/assets')));
 
 app.use('/api/setup', setupRouter);
 app.use('/api/account', accountRouter);

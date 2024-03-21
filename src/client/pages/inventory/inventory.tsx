@@ -43,6 +43,7 @@ function Inventory() {
           VetTrack Inventory
           </p>
         </div>
+
         {/* Item table */}
         <table className='border bg-gray-800 border-gray-700 w-full rounded-lg border-separate border-spacing-3'>
           <thead>
@@ -61,6 +62,7 @@ function Inventory() {
             {inventoryItems}
           </tbody>
         </table>
+        
       </div>
     </section>
   );
