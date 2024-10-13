@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { inventoryItem, inventoryItemColumn } from '../../../types/types';
+import InventoryAdd from './addInventory';
 // import InventoryType from '../../components/inventoryType';
-
-
-
 
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
@@ -32,9 +30,8 @@ function Inventory() {
     // setInventoryItems(result);
   }
 
-  console.log(inventoryItems);
   return (
-    <section className="bg-gray-900 text-white ">
+    <section className="bg-gray-900 text-white">
       <div className="flex flex-col px-6 py-8 mx-auto h-screen overflow-x-auto">
         {/* Top Bar */}
         <div className='flex'>
@@ -43,8 +40,16 @@ function Inventory() {
           VetTrack Inventory
           </p>
 
-          <button className='bg-sky-950 ml-auto mb-2 px-2 py-2 rounded-lg'>+ Add New Medication</button>
+          <button className='bg-sky-950 ml-auto mb-2 px-2 py-2 rounded-lg'
+            onClick={() => setAddItem(true)}>
+            + Add New Inventory Item
+          </button>
         </div>
+
+        {/* Add Inventory Popup */}
+        {addItem ? (
+          <InventoryAdd model = {addItem} setModel = {setAddItem}/>
+        ) : null}
 
         {/* Metrics View */}
         <div>
@@ -55,13 +60,11 @@ function Inventory() {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Category</th>
               <th>Current Stock</th>  
               <th>Ideal Stock</th>
-              <th>Category</th>
               <th>Availability </th>
-              <th>Manage Item</th>
-              <th>Edit Details</th>
-              <th>Delete Item</th> 
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>

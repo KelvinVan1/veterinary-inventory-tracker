@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { inventoryAddPageProps } from '../../../types/types';
 
-function InventoryAdd(props: inventoryAddPageProps) {
-  const {addItem, setAddItem, setUpdated} = props;
+function InventoryAdd(props: {model: boolean, setModel: Dispatch<SetStateAction<boolean>>}) {
+//function InventoryAdd() {
+  // const {addItem, setAddItem, setUpdated} = props;
 
   const [inventoryName, setInventoryName] = useState('');
   const [idealStock, setIdealStock] = useState('0');
   const [category, setCategory] = useState('Default');
 
   async function addNewItem() {
-    setAddItem(false);
-    setUpdated(true);
     await fetch('/api/inventory', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -18,8 +17,40 @@ function InventoryAdd(props: inventoryAddPageProps) {
     });
   }
 
+  function closeModel() {
+    props.setModel(!props.model);
+  }
+
   return (
-    <div>TEMP</div>
+    <div className="relative z-10">
+      <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity" aria-hidden="true"></div>
+
+      <div className="fixed inset-0" >
+        <div className="flex min-h-full justify-center items-center" onClick = {(e) => {if (e.target === e.currentTarget) closeModel();}}>
+          <div className='border-sky-700 border rounded-md bg-slate-700 px-4 py-4'>
+            <div>
+              <h2 className='text-center text-2xl'>Add Inventory Item</h2>
+              <p>Please fill out the fields to add a new inventory item</p>
+
+              <form className='flex flex-col content-between pt-5'>
+                  <label className='font-bold'>Inventory Name:</label>
+                  <input className='rounded-sm text-black'/>
+                  <label className='font-bold'>Inventory Type:</label>
+                  <input className='rounded-sm text-black'/>                
+                  <label className='font-bold'>Ideal Stock:</label>
+                  <input className='rounded-sm text-black'/>
+              </form>
+            </div>
+            
+            <div className='pt-8 text-black'>
+              <button className='bg-sky-600 mr-3 px-4 py-2 rounded-lg'>Save</button>
+              <button className='bg-sky-600 ml-3 px-3 py-2 rounded-lg' onClick={() => closeModel()}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     // <Dialog open={addItem}>
     //   <DialogTitle>Add Item</DialogTitle>
     //   <DialogContent>
