@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import React from 'react';
+import {Dispatch, SetStateAction} from 'react';
 
 //Configuration
 export type configData = {MONGO_URI: string};
@@ -27,9 +27,8 @@ export interface ItemController {
   calculateItem: ResponseObject;
 }
 
-//Frontend
+//Frontend Props
 export type inventoryItem = {_id: string, inventoryName: string, currentStock: number, idealStock: number, category: string}
 export type inventoryItemColumn = {id: string, name: string, currentStock: number, idealStock: number, category: string}
 
-//Page Props
-export type inventoryAddPageProps = {addItem: boolean, setAddItem: React.Dispatch<React.SetStateAction>, setUpdated: React.Dispatch<React.SetStateAction>}
+export type inventoryAddProps = {model: boolean, setModel: Dispatch<SetStateAction<boolean>>}
