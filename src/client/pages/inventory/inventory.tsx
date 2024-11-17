@@ -74,7 +74,6 @@ function Inventory() {
                 <th className='text-left px-5'>Current Stock</th>
                 <th className='text-left px-5'>Ideal Stock</th>
                 <th className='text-left px-5'>Availability</th>
-                <th className='text-left px-5'>Actions</th>
               </tr>
             </thead>
             <tbody>
