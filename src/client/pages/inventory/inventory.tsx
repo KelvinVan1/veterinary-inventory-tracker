@@ -1,33 +1,36 @@
-import { useEffect, useState } from 'react';
-import { inventoryItem, inventoryItemColumn } from '../../../types/types';
+import { useEffect, useState, ReactElement } from 'react';
+import {inventoryItem, inventoryItemColumn} from '../../../types/types';
 import InventoryAdd from './addInventory';
-// import InventoryType from '../../components/inventoryType';
+import InventoryType from '../../components/inventoryType';
 
 function Inventory() {
-  const [inventoryItems, setInventoryItems] = useState<inventoryItemColumn[]>([]);
+  const [inventoryItems, setInventoryItems] = useState<ReactElement[]>([]);
   const [addItem, setAddItem] = useState(false);
 
   useEffect(() => {generateItems();}, []);
 
   async function generateItems(){
-    const request = await fetch('/api/inventory');
-    const items = await request.json();
-    // const result = [];
+    try {
+      const request = await fetch('/api/inventory');
+      const items = await request.json();
+      const result: ReactElement[] = [];
 
-    // items.forEach(element => {
-    //   const {category, currentStock, idealStock, inventoryItems, inventoryName, _id} = element;
-    //   result.push(
-    //     <InventoryType 
-    //       category={category} 
-    //       currentStock={currentStock} 
-    //       idealStock={idealStock} 
-    //       inventoryItems={inventoryItems} 
-    //       inventoryName={inventoryName} 
-    //       id={_id}>
-    //     </InventoryType>);
-    // });
-
-    // setInventoryItems(result);
+      items.forEach((element: inventoryItem) => {
+        console.log(element);
+        const {_id, inventoryName, category, currentStock, idealStock } = element;
+        result.push(
+          <InventoryType
+            key={crypto.randomUUID()}
+            id={_id}
+            name={inventoryName}
+            currentStock={currentStock}
+            idealStock={idealStock}
+            category={category}/>);
+      });
+      setInventoryItems(result);
+    } catch(err) {
+      console.log('There was an error fetching items: ', err);
+    }
   }
 
   return (
@@ -37,18 +40,17 @@ function Inventory() {
         <div className='flex'>
           <img className="w-8 h-8 mt-2 mr-2" src="../api/assets/images/cat.png" alt="logo"/>
           <p className="mt-2 mb-6 text-2xl font-semibold">
-          VetTrack Inventory
+            VetTrack Inventory
           </p>
 
-          <button className='bg-sky-950 ml-auto mb-2 px-2 py-2 rounded-lg'
-            onClick={() => setAddItem(true)}>
+          <button className='bg-sky-950 ml-auto mb-2 px-2 py-2 rounded-lg' onClick={() => setAddItem(true)}>
             + Add New Inventory Item
           </button>
         </div>
 
         {/* Add Inventory Popup */}
         {addItem ? (
-          <InventoryAdd model = {addItem} setModel = {setAddItem}/>
+          <InventoryAdd model={addItem} setModel={setAddItem}/>
         ) : null}
 
         {/* Metrics View */}
@@ -56,25 +58,27 @@ function Inventory() {
         </div>
 
         {/* Item table */}
-        <table className='border bg-gray-800 border-gray-700 w-full rounded-lg border-separate border-spacing-3'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Current Stock</th>  
-              <th>Ideal Stock</th>
-              <th>Availability </th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {inventoryItems} */}
-          </tbody>
-        </table>
-        
+        <div className='overflow-x-auto rounded-lg border border-gray-700'>
+          <table className='border-collapse bg-gray-800 w-full'>
+            <thead>
+              <tr className='bg-sky-950 border-b-2 border-gray-700'>
+                <th className='text-left px-5'>Name</th>
+                <th className='text-left px-5'>Category</th>
+                <th className='text-left px-5'>Current Stock</th>
+                <th className='text-left px-5'>Ideal Stock</th>
+                <th className='text-left px-5'>Availability</th>
+                <th className='text-left px-5'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inventoryItems}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </section>
-  );
+);
 }
 
 export default Inventory;
