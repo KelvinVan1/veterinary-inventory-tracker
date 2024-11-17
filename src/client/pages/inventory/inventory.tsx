@@ -6,32 +6,39 @@ import InventoryType from '../../components/inventoryType';
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<ReactElement[]>([]);
   const [addItem, setAddItem] = useState(false);
+  const [update, setUpdate] = useState(true);
 
-  useEffect(() => {generateItems();}, []);
+  useEffect(() => {
+    async function generateItems(){
+      try {
+        const request = await fetch('/api/inventory');
+        const items = await request.json();
+        const result: ReactElement[] = [];
 
-  async function generateItems(){
-    try {
-      const request = await fetch('/api/inventory');
-      const items = await request.json();
-      const result: ReactElement[] = [];
-
-      items.forEach((element: inventoryItem) => {
-        console.log(element);
-        const {_id, inventoryName, category, currentStock, idealStock } = element;
-        result.push(
-          <InventoryType
-            key={crypto.randomUUID()}
-            id={_id}
-            name={inventoryName}
-            currentStock={currentStock}
-            idealStock={idealStock}
-            category={category}/>);
-      });
-      setInventoryItems(result);
-    } catch(err) {
-      console.log('There was an error fetching items: ', err);
+        items.forEach((element: inventoryItem) => {
+          console.log(element);
+          const {_id, inventoryName, category, currentStock, idealStock } = element;
+          result.push(
+            <InventoryType
+              key={crypto.randomUUID()}
+              id={_id}
+              name={inventoryName}
+              currentStock={currentStock}
+              idealStock={idealStock}
+              category={category}/>);
+        });
+        setInventoryItems(result);
+      } catch(err) {
+        console.log('There was an error fetching items: ', err);
+      }
     }
-  }
+
+    if(update) {
+      generateItems();
+      setUpdate(false);
+    }
+
+  }, [update]);
 
   return (
     <section className="bg-gray-900 text-white">
@@ -50,7 +57,7 @@ function Inventory() {
 
         {/* Add Inventory Popup */}
         {addItem ? (
-          <InventoryAdd model={addItem} setModel={setAddItem}/>
+          <InventoryAdd model={addItem} setModel={setAddItem} setUpdate={setUpdate}/>
         ) : null}
 
         {/* Metrics View */}

@@ -18,11 +18,20 @@ function InventoryAdd(props: inventoryAddProps) {
     }
 
     setInvalidForm(false);
-    await fetch('/api/inventory', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({inventoryName, currentStock: 0, idealStock, category})
-    });
+
+    try{
+      await fetch('/api/inventory', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({inventoryName, currentStock: 0, idealStock, category})
+      });
+      props.setUpdate(true);
+    } catch (error) {
+      console.log('An error has occurred while adding item: ' + error);
+    }
+
+    closeModel();
+
   }
 
   function closeModel() {
