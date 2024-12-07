@@ -1,11 +1,16 @@
 import { useEffect, useState, ReactElement } from 'react';
-import {inventoryItem, inventoryItemColumn} from '../../../types/types';
+import {inventoryItem} from '../../../types/types';
 import InventoryAdd from './addInventory';
+import InventoryDetails from './inventoryDetails';
 import InventoryType from '../../components/inventoryType';
 
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<ReactElement[]>([]);
   const [addItem, setAddItem] = useState(false);
+  const [detailsModel, setDetailsModel] = useState(false);
+  const [selectedItemID, setSelectedItemID] = useState('-1');
+
+  // Handles determining if component should rerender
   const [update, setUpdate] = useState(true);
 
   useEffect(() => {
@@ -16,12 +21,12 @@ function Inventory() {
         const result: ReactElement[] = [];
 
         items.forEach((element: inventoryItem) => {
-          console.log(element);
           const {_id, inventoryName, category, currentStock, idealStock } = element;
           result.push(
             <InventoryType
               key={crypto.randomUUID()}
               id={_id}
+              setSelectedItemID={setSelectedItemID}
               name={inventoryName}
               currentStock={currentStock}
               idealStock={idealStock}
@@ -59,6 +64,9 @@ function Inventory() {
         {addItem ? (
           <InventoryAdd model={addItem} setModel={setAddItem} setUpdate={setUpdate}/>
         ) : null}
+
+        {/*Selected Item Details Popup*/}
+        { selectedItemID !== '-1' ? <InventoryDetails selectedID={selectedItemID} setModel={setDetailsModel}/> : null}
 
         {/* Metrics View */}
         <div>

@@ -11,13 +11,12 @@ function InventoryAdd(props: inventoryAddProps) {
   const [invalidNum, setInvalidNum] = useState(false);
   const [invalidForm, setInvalidForm] = useState(false);
 
+  // Handles adding a new item to inventory
   async function addNewItem() {
     if(inventoryName === '' || category === '' || invalidNum) {
       setInvalidForm(true);
       return;
     }
-
-    setInvalidForm(false);
 
     try{
       await fetch('/api/inventory', {
@@ -30,8 +29,8 @@ function InventoryAdd(props: inventoryAddProps) {
       console.log('An error has occurred while adding item: ' + error);
     }
 
+    setInvalidForm(false);
     closeModel();
-
   }
 
   function closeModel() {

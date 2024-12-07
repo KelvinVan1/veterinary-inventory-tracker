@@ -5,6 +5,11 @@ function InventoryType(props: inventoryItemColumn) {
   const [availability, setAvailability] = useState(0);
   const [availabilityColor, setAvailabilityColor] = useState('bg-red-900');
 
+  function selectItem() {
+    props.setSelectedItemID(props.id);
+  }
+
+  // Calculates availability percentages based on current and ideal stock
   useEffect(() => {
     const calculation = props.currentStock / props.idealStock * 100 | 0;
 
@@ -13,6 +18,7 @@ function InventoryType(props: inventoryItemColumn) {
     }
   }, [props.currentStock, props.idealStock]);
 
+  // Handles setting availability bar color based on inventory stock values
   useEffect(() => {
     if(availability < 50) setAvailabilityColor('bg-red-900');
     else if (availability < 80) setAvailabilityColor('bg-yellow-900');
@@ -20,7 +26,7 @@ function InventoryType(props: inventoryItemColumn) {
   }, [availability]);
 
   return (
-    <tr className='hover:bg-sky-950 text-lg'>
+    <tr className='hover:bg-sky-950 text-lg' onClick={() => selectItem()}>
       <td className='px-5'>{props.name}</td>
       <td className='px-5'>{props.category}</td>
       <td className='px-5'>{props.currentStock}</td>
