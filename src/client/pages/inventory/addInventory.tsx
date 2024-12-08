@@ -34,7 +34,7 @@ function InventoryAdd(props: inventoryAddProps) {
   }
 
   function closeModel() {
-    props.setModel(!props.model);
+    props.setModel(false);
   }
 
   return (

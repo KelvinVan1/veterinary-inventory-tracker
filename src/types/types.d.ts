@@ -31,5 +31,5 @@ export interface ItemController {
 export type inventoryItem = {_id: string, inventoryName: string, currentStock: number, idealStock: number, category: string}
 export type inventoryItemColumn = {id: string, setSelectedItemID: Dispatch<SetStateAction<string>>, name: string, currentStock: number, idealStock: number, category: string}
 
-export type inventoryAddProps = {model: boolean, setModel: Dispatch<SetStateAction<boolean>>, setUpdate: Dispatch<SetStateAction<boolean>>};
-export type inventoryDetailsProps = {selectedID: string, setModel : Dispatch<SetStateAction<boolean>>}
+export type inventoryAddProps = {setModel: Dispatch<SetStateAction<boolean>>, setUpdate: Dispatch<SetStateAction<boolean>>};
+export type inventoryDetailsProps = {selectedID: string, setSelectedID : Dispatch<SetStateAction<string>>}

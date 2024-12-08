@@ -7,7 +7,6 @@ import InventoryType from '../../components/inventoryType';
 function Inventory() {
   const [inventoryItems, setInventoryItems] = useState<ReactElement[]>([]);
   const [addItem, setAddItem] = useState(false);
-  const [detailsModel, setDetailsModel] = useState(false);
   const [selectedItemID, setSelectedItemID] = useState('-1');
 
   // Handles determining if component should rerender
@@ -62,11 +61,11 @@ function Inventory() {
 
         {/* Add Inventory Popup */}
         {addItem ? (
-          <InventoryAdd model={addItem} setModel={setAddItem} setUpdate={setUpdate}/>
+          <InventoryAdd setModel={setAddItem} setUpdate={setUpdate}/>
         ) : null}
 
         {/*Selected Item Details Popup*/}
-        { selectedItemID !== '-1' ? <InventoryDetails selectedID={selectedItemID} setModel={setDetailsModel}/> : null}
+        { selectedItemID !== '-1' ? <InventoryDetails selectedID={selectedItemID} setSelectedID={setSelectedItemID}/> : null}
 
         {/* Metrics View */}
         <div>
